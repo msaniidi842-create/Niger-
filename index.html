@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Terrain Niger 🇳🇪</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="bg-gray-100">
+
+    <nav class="bg-green-700 p-4 text-white text-center shadow-lg">
+        <h1 class="text-xl font-bold font-serif italic text-orange-400">MON TERRAIN NIGER</h1>
+    </nav>
+
+    <div id="map" class="h-72 w-full shadow-md"></div>
+
+    <div class="p-4 max-w-md mx-auto">
+        
+        <div class="bg-white p-4 rounded-2xl shadow-lg mb-6 border-t-4 border-green-600">
+            <h2 class="font-bold text-gray-800 text-lg">Terrain en vente (Exemple)</h2>
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=500" class="rounded-xl mt-2 w-full h-40 object-cover">
+            <div class="flex justify-between items-center mt-3">
+                <p class="text-green-700 font-bold text-xl">15.000.000 F</p>
+                <span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded">Titre Foncier</span>
+            </div>
+            <p class="text-sm text-gray-600">Quartier : Koira Kano | 400m²</p>
+            <button onclick="window.open('https://wa.me/22700000000')" class="w-full mt-3 bg-blue-500 text-white py-2 rounded-lg font-bold">📞 Contacter</button>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-orange-500 bg-orange-50">
+            <h3 class="font-bold text-center mb-1 text-orange-800 text-lg uppercase">Vendre votre terrain</h3>
+            <p class="text-[10px] text-center mb-4 text-gray-600 uppercase tracking-widest">Frais de publication : 2.000 F CFA</p>
+            
+            <label class="text-xs font-bold text-gray-700">QUARTIER</label>
+            <input id="quartier" type="text" placeholder="Ex: Niamey 2000" class="w-full p-3 mb-3 rounded-lg border-2 border-gray-200">
+            
+            <label class="text-xs font-bold text-gray-700">PRIX (F CFA)</label>
+            <input id="prix" type="number" placeholder="Ex: 5000000" class="w-full p-3 mb-3 rounded-lg border-2 border-gray-200">
+
+            <label class="text-xs font-bold text-gray-700">VOTRE NOM</label>
+            <input id="nom" type="text" placeholder="Votre nom complet" class="w-full p-3 mb-5 rounded-lg border-2 border-gray-200">
+            
+            <button onclick="envoyerWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white p-4 rounded-xl font-bold text-lg shadow-lg flex justify-center items-center gap-2">
+                <span>🚀 PUBLIER MAINTENANT</span>
+            </button>
+            <p class="text-[9px] text-center mt-3 text-gray-500 italic">En cliquant, vous envoyez les détails sur WhatsApp pour validation.</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialisation de la carte sur Niamey
+        var map = L.map('map').setView([13.5127, 2.1128], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Marqueur exemple
+        L.marker([13.535, 2.105]).addTo(map).bindPopup('<b>Terrain Koira Kano</b><br>15M F CFA');
+
+        function envoyerWhatsApp() {
+            var q = document.getElementById('quartier').value;
+            var p = document.getElementById('prix').value;
+            var n = document.getElementById('nom').value;
+
+            // --- METS TON NUMÉRO ICI ---
+            var monNumero = "22789860545"; 
+
+            if(q == "" || p == "") {
+                alert("Oups ! Remplissez toutes les cases.");
+                return;
+            }
+
+            var texte = "Bonjour *Mon Terrain Niger* !%0A%0A" +
+                        "Je souhaite vendre mon terrain :%0A" +
+                        "📍 *Quartier :* " + q + "%0A" +
+                        "💰 *Prix :* " + p + " F CFA%0A" +
+                        "👤 *Vendeur :* " + n + "%0A%0A" +
+                        "Dites-moi comment payer les 2.000 F de frais.";
+
+            window.open("https://wa.me/" + monNumero + "?text=" + texte);
+        }
+    </script>
+</body>
